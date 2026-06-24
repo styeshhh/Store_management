@@ -1,4 +1,4 @@
-msg = '''Please select your choice :
+msg = '''Please select your choice (After anything you did , please save the file):
 1)add / Edit
 2)sell
 3)search
@@ -33,12 +33,16 @@ def add_product(name , qty):
         return "Added successfully"
 
 def sell_product(name , amount):
-        if product_dict.get(name) >= amount:
-            product_dict [name] = int(product_dict.get(name)) - amount
-            return f"the product saled succefully , now you have {product_dict [name]} of it"
-        else :
-            return f"you can't sell this product .you don't have {amount} of {name} , you only have {product_dict [name]} of it"
-    
+    if product_dict.get(name) >= amount:
+        product_dict[name] -= amount
+
+    if product_dict[name] == 0:
+        del product_dict[name]
+        return f"the product sold successfully, now you have {product_dict.get(name, 0)} of it"
+    else:
+         return f"you can't sell this product. you don't have {amount} of {name}, you only have {product_dict[name]} of it"       
+        
+
 def search_product(name):
     qty = product_dict.get(name)
     if name in product_dict :
@@ -56,6 +60,33 @@ def save_product():
         for name ,qty in product_dict.items():
             file.write(f"product : {name} - quantity : {qty} \n")  
         return  "saved successfuly"
+    
+def report_products():
+    if product_dict:
+        product_count =[]
+        count_all = 0
+        max_product = max(product_dict.values())
+        max_product_names = [
+        name
+        for name, qty in product_dict.items()
+        if qty == max_product
+        ]
+        min_product = min(product_dict.values())
+        min_product_names = [
+        name
+        for name, qty in product_dict.items()
+        if qty == min_product
+        ]
+        for name,qty in product_dict.items():
+            product_count.append(f"{name} : {qty}")
+            count_all += int(qty)
+        report = f'''
+count of all the products you have in your store : {count_all}
+the max amount of product is {max_product} which is for {" and ".join(max_product_names)}
+the min amount of product is {min_product} which is for {" and ".join(min_product_names)}
+        '''
+        return product_count , report
+    
 
 load_products()
 while True:
@@ -93,6 +124,13 @@ while True:
     elif choice == '5': # save products to a file
         print(save_product())
     elif choice == '6': #report products
-        pass
+        print ("Here is your report : ")
+        product_count , report = report_products ()
+        for pro in product_count:
+            print (pro)
+        print (report)
+
     elif choice == '7': #exit the program 
         break
+    else :
+        print("Please enter a valid number")

@@ -1,4 +1,3 @@
-product : A - quantity : 5 
-product : B - quantity : 20 
-product : Tomato - quantity : 20 
-product : t - quantity : 20 
+product : milk - quantity : 10 
+product : water - quantity : 50 
+product : chips - quantity : 20 
