@@ -1,0 +1,4 @@
+product : A - quantity : 5 
+product : B - quantity : 20 
+product : Tomato - quantity : 20 
+product : t - quantity : 20 
