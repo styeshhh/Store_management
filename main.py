@@ -62,31 +62,32 @@ def save_product():
             file.write(f"product : {name} - quantity : {qty} \n")  
         return  "saved successfuly"
     
-def report_products():
-    if product_dict:
-        product_count =[]
-        count_all = 0
-        max_product = max(product_dict.values())
-        max_product_names = [
-        name
-        for name, qty in product_dict.items()
-        if qty == max_product
-        ]
-        min_product = min(product_dict.values())
-        min_product_names = [
-        name
-        for name, qty in product_dict.items()
-        if qty == min_product
-        ]
-        for name,qty in product_dict.items():
-            product_count.append(f"{name} : {qty}")
-            count_all += qty
-        report = f'''
+def report_products():  
+    product_count =[]
+    count_all = 0
+    max_product = max(product_dict.values())
+    max_product_names = [
+    name
+    for name, qty in product_dict.items()
+    if qty == max_product
+    ]
+    min_product = min(product_dict.values())
+    min_product_names = [
+    name
+    for name, qty in product_dict.items()
+    if qty == min_product
+    ]
+    for name,qty in product_dict.items():
+        product_count.append(f"{name} : {qty}")
+        count_all += qty
+    report = f'''
 count of all the products you have in your store : {count_all}
 the max amount of product is {max_product} which is for {" and ".join(max_product_names)}
 the min amount of product is {min_product} which is for {" and ".join(min_product_names)}
-        '''
-        return product_count , report
+    '''
+    return product_count , report
+    
+
     
 
 load_products()
@@ -125,11 +126,15 @@ while True:
     elif choice == '5': # save products to a file
         print(save_product())
     elif choice == '6': #report products
-        print ("Here is your report : ")
-        product_count , report = report_products ()
-        for pro in product_count:
-            print (pro)
-        print (report)
+        if product_dict :
+            print ("Here is your report : ")
+            product_count , report = report_products ()
+            for pro in product_count:
+                print (pro)
+            print (report)
+        else :
+            print("your store is empty , please add sth first")
+
 
     elif choice == '7': #exit the program 
         break
