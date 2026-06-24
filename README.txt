@@ -25,4 +25,4 @@ python main.py
 
 ## Author
 
-Setayesh
+Setayesh Hajavari
