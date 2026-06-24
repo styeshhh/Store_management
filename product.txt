@@ -1,3 +1,0 @@
-product : milk - quantity : 10 
-product : water - quantity : 50 
-product : chips - quantity : 20 

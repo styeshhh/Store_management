@@ -33,15 +33,16 @@ def add_product(name , qty):
         return "Added successfully"
 
 def sell_product(name , amount):
-    if product_dict.get(name) >= amount:
-        product_dict[name] -= amount
+    if product_dict.get(name) < amount:
+        return f"you can't sell this product. you don't have {amount} of {name}, you only have {product_dict[name]} of it"       
+
+    product_dict[name] -= amount
 
     if product_dict[name] == 0:
         del product_dict[name]
-        return f"the product sold successfully, now you have {product_dict.get(name, 0)} of it"
+        return f"sold successfuly. Now {name} is out of stock"    
     else:
-         return f"you can't sell this product. you don't have {amount} of {name}, you only have {product_dict[name]} of it"       
-        
+        return f"sold successfuly. Remaining: {product_dict[name]}"        
 
 def search_product(name):
     qty = product_dict.get(name)
@@ -79,7 +80,7 @@ def report_products():
         ]
         for name,qty in product_dict.items():
             product_count.append(f"{name} : {qty}")
-            count_all += int(qty)
+            count_all += qty
         report = f'''
 count of all the products you have in your store : {count_all}
 the max amount of product is {max_product} which is for {" and ".join(max_product_names)}
